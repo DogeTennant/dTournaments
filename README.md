@@ -190,7 +190,7 @@ Main command: `/dtournaments` (alias: `/dt`)
 | `/dt update` | `dtournaments.admin.update` | Force-flush scores to the database |
 | `/dt clear <id>` | `dtournaments.admin.clear` | Reset all scores in a running tournament |
 | `/dt clearplayer <id> <player>` | `dtournaments.admin.clearplayer` | Reset a specific player's score |
-| `/dt forcejoin <id> [player\|*]` | `dtournaments.admin.forcejoin` | Force-join a player (or everyone) into a tournament |
+| `/dt forcejoin <id> [player\|all]` | `dtournaments.admin.forcejoin` | Force-join a player (or everyone) into a tournament |
 | `/dt pools` | `dtournaments.admin.reload` | List all pools and their next scheduled run |
 | `/dt migrate` | `dtournaments.admin.migrate` | Migrate data from SQLite to MySQL |
 
