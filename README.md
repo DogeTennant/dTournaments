@@ -2,7 +2,7 @@
 
 > A fully-featured, highly configurable tournament plugin for **Paper 26.1+**
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.6+-orange?logo=data:image/png;base64,)](https://papermc.io)
+[![Paper](https://img.shields.io/badge/Paper-26.1+-orange?logo=data:image/png;base64,)](https://papermc.io)
 [![Java](https://img.shields.io/badge/Java-21+-blue?logo=openjdk)](https://adoptium.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
