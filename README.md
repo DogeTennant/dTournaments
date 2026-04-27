@@ -1,8 +1,8 @@
 # dTournaments
 
-> A fully-featured, highly configurable tournament plugin for **Paper 26.1+**
+> A fully-featured, highly configurable tournament plugin for **Paper 1.21-26.1+**
 
-[![Paper](https://img.shields.io/badge/Paper-26.1+-orange?logo=data:image/png;base64,)](https://papermc.io)
+[![Paper](https://img.shields.io/badge/Paper-1.21+-orange?logo=data:image/png;base64,)](https://papermc.io)
 [![Java](https://img.shields.io/badge/Java-21+-blue?logo=openjdk)](https://adoptium.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -35,7 +35,7 @@ dTournaments lets you run live, automated tournaments on your server with minima
 
 | Requirement | Version |
 |---|---|
-| [Paper](https://papermc.io/downloads/paper) (or fork) | 26.1+ |
+| [Paper](https://papermc.io/downloads/paper) (or fork) | 1.21-26.1+ |
 | Java | 21+ |
 
 **Optional soft dependencies** (enable extra objectives/features):
