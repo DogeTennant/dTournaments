@@ -14,7 +14,7 @@ dTournaments lets you run live, automated tournaments on your server with minima
 
 - **Two tournament modes** - *Regular* (highest score wins) and *Challenge* (first to reach a goal)
 - **19 built-in objectives** - block breaking/placing, mob/player kills, boss kills, fishing, crafting, enchanting, taming, breeding, jumping, distance, sneaking, shooting, villager trades, item pickup, XP gain, level-up, and more
-- **6 plugin integrations** - mcMMO, Jobs Reborn, MythicMobs, AuraSkills, CrazyCrates *(all optional)*
+- **6 plugin integrations** - mcMMO, Jobs Reborn, MythicMobs, AuraSkills, CrazyCrates, OneInTheChamberReborn *(all optional)*
 - **Tournament Pools** - group multiple tournaments under one schedule; run them randomly or in round-robin rotation
 - **Flexible scheduling** - Hourly, Daily, Weekly, Monthly, or a specific date and time, with configurable timezone
 - **Persistent live scoreboard** - smartly yields to minigame scoreboards and restores itself automatically
@@ -22,7 +22,7 @@ dTournaments lets you run live, automated tournaments on your server with minima
 - **Boss bars** - countdown progress bar during tournaments, upcoming-tournament notification bar
 - **Sounds** - 3-2-1 countdown beeps on start, fanfare on end
 - **Rewards** - command rewards per-place in config, or an in-game GUI item reward editor
-- **CoreProtect integration** - prevents block-break farming by ignoring player-placed blocks
+- **Built-in anti-farm** - placing and re-breaking the same block does not score (`block_break` and `block_place`); no extra plugin needed
 - **SQLite & MySQL** - with a built-in migration command to move between them
 - **Full PlaceholderAPI support** - 30+ placeholders for scoreboards, holograms, and more
 - **MiniMessage + legacy color code support** - full RGB and gradient support everywhere
@@ -44,12 +44,12 @@ dTournaments lets you run live, automated tournaments on your server with minima
 |---|---|
 | [Vault](https://github.com/MilkBowl/Vault) | Entry fees, economy rewards |
 | [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | 30+ placeholders |
-| [CoreProtect](https://www.spigotmc.org/resources/coreprotect.8631/) | Anti-farm for block break tournaments |
 | [mcMMO](https://www.spigotmc.org/resources/official-mcmmo-original-author-returns.64348/) | `mcmmo_xp` objective |
 | [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/) | `jobs_xp` objective |
 | [MythicMobs](https://www.spigotmc.org/resources/mythicmobs.5702/) | `mythicmob_kill` objective |
 | [AuraSkills](https://www.spigotmc.org/resources/auraskills.81069/) | `auraskills_xp` objective |
 | [CrazyCrates](https://www.spigotmc.org/resources/crazycrates.17743/) | `crazy_crates_open` objective |
+| [OneInTheChamberReborn](https://github.com/DogeTennant/OneInTheChamberReborn) | `oitc_kill`, `oitc_milestone`, `oitc_win` objectives |
 
 ---
 
@@ -99,31 +99,42 @@ Players race to be the first to **reach a set goal**. You can configure how many
 | `block_place` | Place blocks | `block-filter: []` |
 | `mob_kill` | Kill vanilla mobs | `mob-filter: []` - restrict to specific entity types |
 | `player_kill` | Kill other players | - |
-| `kill_boss` | Kill wither/ender dragon/elder guardian | `boss-filter: []` |
+| `kill_boss` | Kill wither/ender dragon/elder guardian/warden | `boss-filter: []` - `WITHER`, `ENDER_DRAGON`, `ELDER_GUARDIAN`, `WARDEN` |
 | `damage_dealt` | Deal damage to any entity | - |
 | `jump` | Jump | - |
 | `distance` | Travel distance (per block) | - |
 | `sneak` | Toggle sneak | - |
 | `shoot` | Hit entities with a bow | - |
 | `fish` | Catch fish | - |
-| `craft` | Craft items | `item-filter: []` |
+| `craft` | Craft items | `item-filter: []` - material of the crafted item; `prevent-drop-exploit: true` - do not count crafts dropped straight from the result slot |
 | `enchant` | Enchant items | - |
 | `tame` | Tame animals | - |
 | `breed` | Breed animals | - |
 | `villager_trade` | Trade with villagers | - |
-| `item_pickup` | Pick up items | `item-filter: []` |
+| `item_pickup` | Pick up items | `item-filter: []`; `prevent-dispenser-exploit: true` - do not count items a dispenser threw |
 | `xp_gain` | Gain vanilla XP | - |
 | `level_up` | Level up (vanilla) | - |
+
+A filter is a list of names; empty or missing counts everything. Options go under `objective-options` in the tournament file, and every running tournament is scored on its own options - two tournaments with the same objective and different filters can run at the same time.
+
+```yaml
+objective: mob_kill
+objective-options:
+  mob-filter: [PIGLIN_BRUTE, WITHER_SKELETON]
+```
 
 ### External (require the respective plugin)
 
 | Objective ID | Plugin | Options |
 |---|---|---|
 | `mcmmo_xp` | mcMMO | `skill: MINING` (or `ANY`) |
-| `jobs_xp` | Jobs Reborn | `job: Miner` (or `ANY`) |
+| `jobs_xp` | Jobs Reborn | `job: Miner` (also `job-name`, or `ANY`) |
 | `mythicmob_kill` | MythicMobs | `mob-filter: []` |
-| `auraskills_xp` | AuraSkills | `skill: farming` (or `ANY`) |
+| `auraskills_xp` | AuraSkills | `skill: farming` (also `auraskills/farming`, or `ANY`) |
 | `crazy_crates_open` | CrazyCrates | `crate-filter: []` |
+| `oitc_kill` | OneInTheChamberReborn | `arena` |
+| `oitc_milestone` | OneInTheChamberReborn | `arena`; `min-milestone: 5` (5, 10, 15 or 20) |
+| `oitc_win` | OneInTheChamberReborn | `arena`; `flawless-only: false` - only wins without dying |
 
 ---
 
